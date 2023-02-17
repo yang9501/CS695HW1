@@ -8,13 +8,14 @@
 #define GPIO_PATH "/sys/class/gpio/gpio"
 
 void writeLED(char filename[], char port[], char value[]);
+void cycleLights(char greenPort[], char yellowPort[], char redPort[]);
 
 int main() {
 	writeLED("/direction", "68", "out"); // set direction for pin
-	char trafficLight1Ports[3][5] = ["67", "68", "44"];
-	char trafficLight2Ports[3][5] = ["26", "46", "65"];
+	char trafficLight1Ports[3][5] = {"67", "68", "44"};
+	char trafficLight2Ports[3][5] = {"26", "46", "65"};
 
-	while(true) {
+	while(1) {
 		cycleLights(trafficLight1Ports[0], trafficLight1Ports[1], trafficLight1Ports[2]);
 		
 		cycleLights(trafficLight2Ports[0], trafficLight2Ports[1], trafficLight2Ports[2]);	
@@ -23,7 +24,7 @@ int main() {
 	return 0;
 }
 
-void cycleLights(char[] greenPort, char[] yellowPort, char[] redPort) {
+void cycleLights(char greenPort[], char yellowPort[], char redPort[]) {
 	writeLED("/value", greenPort, "1");
 	sleep(20);
 	writeLED("/value", greenPort, "0");
