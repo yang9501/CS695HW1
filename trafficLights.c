@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <string.h>
+#include <pthread.h>
 
 #define GPIO_PATH "/sys/class/gpio/gpio"
 
@@ -10,30 +11,27 @@ void writeLED(char filename[], char port[], char value[]);
 
 int main() {
 	writeLED("/direction", "68", "out"); // set direction for pin
-	char trafficLight1Ports[] = ["67", "68", "44"];
-	char trafficLight2Ports[] = ["26", "46", "65"];
-	printf("Beginning to blink LED 5 times.\n");
-	for (int i =0; i < 2; i++) {
-		writeLED("/value", "68", "1");
-		sleep(1);
-		writeLED("/value", "68", "0");
-		sleep(1);
-		printf("Blink %d\n", i);
-	} 
-	printf("Blinking complete.\n");	
-	
+	char trafficLight1Ports[3][5] = ["67", "68", "44"];
+	char trafficLight2Ports[3][5] = ["26", "46", "65"];
+
+	while(true) {
+		cycleLights(trafficLight1Ports[0], trafficLight1Ports[1], trafficLight1Ports[2]);
+		
+		cycleLights(trafficLight2Ports[0], trafficLight2Ports[1], trafficLight2Ports[2]);	
+	}
+
 	return 0;
 }
 
-void cycleLights() {
+void cycleLights(char[] greenPort, char[] yellowPort, char[] redPort) {
 	writeLED("/value", greenPort, "1");
-	sleep(120);
+	sleep(20);
 	writeLED("/value", greenPort, "0");
        	writeLED("/value", yellowPort, "1");
 	sleep(5);
 	writeLED("/value", yellowPort, "0");
 	writeLED("/value", redPort, "1");
-	sleep(125);
+	sleep(25);
 	writeLED("/value", redPort, "0");	
 }
 
