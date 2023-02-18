@@ -6,13 +6,20 @@
 #include <pthread.h>
 
 #define GPIO_PATH "/sys/class/gpio/gpio"
+#define GPIO_PATH_44 "/sys/class/gpio/gpio44" //Green 1
+#define GPIO_PATH_68 "/sys/class/gpio/gpio68" //Yellow 1
+#define GPIO_PATH_67 "/sys/class/gpio/gpio67" //Red 1
+
+#define GPIO_PATH_26 "/sys/class/gpio/gpio26" //Green 2
+#define GPIO_PATH_46 "/sys/class/gpio/gpio46" //Yellow 2
+#define GPIO_PATH_65 "/sys/class/gpio/gpio65" //Red 2
 
 void writeLED(char filename[], char port[], char value[]);
 void cycleLights(char greenPort1[], char yellowPort1[], char redPort1[], char greenPort2[], char yellowPort2[], char redPort2[]);
 
 int main() {
-	char trafficLight1Ports[3][5] = {"44", "68", "67"};
-	char trafficLight2Ports[3][5] = {"26", "46", "65"};
+	char trafficLight1Ports[3][5] = {GPIO_PATH_44, GPIO_PATH_68, GPIO_PATH_67};
+	char trafficLight2Ports[3][5] = {GPIO_PATH_26, GPIO_PATH_46, GPIO_PATH_65};
 	for(int i = 0; i < 3; i++) {
 		writeLED("/direction", trafficLight1Ports[i], "out");
 		writeLED("/direction", trafficLight2Ports[i], "out");
@@ -68,7 +75,7 @@ void cycleLights(char greenPort1[], char yellowPort1[], char redPort1[], char gr
 void writeLED(char filename[], char port[], char value[]) {
 	FILE* fp; //create file pointer
 	char fullFileName[100]; //store path and filename
-	sprintf(fullFileName, GPIO_PATH "%s%s", port, filename); //write path/name
+	sprintf(fullFileName, "%s%s", port, filename); //write path/name
 	fp = fopen(fullFileName, "w+"); //open file for writing
 	fprintf(fp, "%s", value); // send value to the file
 	fclose(fp); //close the file using the file pointer
