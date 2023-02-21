@@ -22,10 +22,12 @@ int main() {
 	char trafficLight2Ports[3][25] = {GPIO_PATH_26, GPIO_PATH_46, GPIO_PATH_65};
 
     #ifdef DEBUG
-        for (int i = 0; i < 3; i++) {
-            writeLED("/direction", trafficLight1Ports[i], "out");
-            writeLED("/direction", trafficLight2Ports[i], "out");
-        }
+        printf("DEBUG MODE\n");
+    #else
+    for (int i = 0; i < 3; i++) {
+        writeLED("/direction", trafficLight1Ports[i], "out");
+        writeLED("/direction", trafficLight2Ports[i], "out");
+    }
     #endif
 
 	while(1) {
@@ -37,52 +39,56 @@ int main() {
 
 void cycleLights(char greenPort1[], char yellowPort1[], char redPort1[], char greenPort2[], char yellowPort2[], char redPort2[]) {
     #ifdef DEBUG
+    printf("Green1 on: %s\n", greenPort1);
+    printf("Red2 on: %s\n", redPort2);
+    #else
     writeLED("/value", greenPort1, "1");
     writeLED("/value", redPort2, "1");
     #endif
-    printf("Green1 on: %s\n", greenPort1);
-    printf("Red2 on: %s\n", redPort2);
 	
     sleep(10);
 
     #ifdef DEBUG
+    printf("Green1 off: %s\n", greenPort1);
+    printf("Yellow1 on: %s\n", yellowPort1);
+    #else
     writeLED("/value", greenPort1, "0");
     writeLED("/value", yellowPort1, "1");
     #endif
-    printf("Green1 off: %s\n", greenPort1);
-    printf("Yellow1 on: %s\n", yellowPort1);
 	
     sleep(5);
 
     #ifdef DEBUG
+    printf("Yellow1 off: %s\n", yellowPort1);
+    printf("Red1 on: %s\n", redPort1);
+    printf("Green2 on: %s\n", greenPort2);
+    printf("Red2 off: %s\n", redPort2);
+    #else
     writeLED("/value", yellowPort1, "0");
     writeLED("/value", redPort1, "1");
     writeLED("/value", greenPort2, "1");
     writeLED("/value", redPort2, "0");
     #endif
-    printf("Yellow1 off: %s\n", yellowPort1);
-    printf("Red1 on: %s\n", redPort1);
-    printf("Green2 on: %s\n", greenPort2);
-    printf("Red2 off: %s\n", redPort2);
-	
 
     sleep(10);
 
     #ifdef DEBUG
+    printf("Green2 off: %s\n", greenPort2);
+    printf("Yellow2 on: %s\n", yellowPort2);
+    #else
     writeLED("/value", greenPort2, "0");
     writeLED("/value", yellowPort2, "1");
     #endif
-    printf("Green2 off: %s\n", greenPort2);
-    printf("Yellow2 on: %s\n", yellowPort2);
 
     sleep(5);
 
     #ifdef DEBUG
+    printf("Yellow2 off: %s\n", yellowPort2);
+    printf("Red1 off: %s\n", redPort1);
+    #else
     writeLED("/value", yellowPort2, "0");
     writeLED("/value", redPort1, "0");
     #endif
-    printf("Yellow2 off: %s\n", yellowPort2);
-    printf("Red1 off: %s\n", redPort1);
 }
 
 void writeLED(char filename[], char port[], char value[]) {
