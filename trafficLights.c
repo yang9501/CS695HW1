@@ -5,7 +5,7 @@
 #include <string.h>
 #include <pthread.h>
 
-#define GPIO_PATH "/sys/class/gpio/gpio"
+#define DEBUG 1
 #define GPIO_PATH_44 "/sys/class/gpio/gpio44" //Green 1
 #define GPIO_PATH_68 "/sys/class/gpio/gpio68" //Yellow 1
 #define GPIO_PATH_67 "/sys/class/gpio/gpio67" //Red 1
@@ -33,43 +33,43 @@ int main() {
 }
 
 void cycleLights(char greenPort1[], char yellowPort1[], char redPort1[], char greenPort2[], char yellowPort2[], char redPort2[]) {
-	printf("Green1 on: %s\n", greenPort1);
 	writeLED("/value", greenPort1, "1");
-	printf("Red2 on: %s\n", redPort2);
 	writeLED("/value", redPort2, "1");
+    printf("Green1 on: %s\n", greenPort1);
+    printf("Red2 on: %s\n", redPort2);
 	
 	sleep(10);
-	
-	printf("Green1 off: %s\n", greenPort1);
+
 	writeLED("/value", greenPort1, "0");
-	printf("Yellow1 on: %s\n", yellowPort1);
-       	writeLED("/value", yellowPort1, "1");
+    writeLED("/value", yellowPort1, "1");
+    printf("Green1 off: %s\n", greenPort1);
+    printf("Yellow1 on: %s\n", yellowPort1);
 	
 	sleep(5);
-	
-	printf("Yellow1 off: %s\n", yellowPort1);
+
 	writeLED("/value", yellowPort1, "0");
-	printf("Red1 on: %s\n", redPort1);
 	writeLED("/value", redPort1, "1");
-	printf("Green2 on: %s\n", greenPort2);
 	writeLED("/value", greenPort2, "1");
-	printf("Red2 off: %s\n", redPort2);
 	writeLED("/value", redPort2, "0");
+    printf("Yellow1 off: %s\n", yellowPort1);
+    printf("Red1 on: %s\n", redPort1);
+    printf("Green2 on: %s\n", greenPort2);
+    printf("Red2 off: %s\n", redPort2);
 	
 
 	sleep(10);
 
-	printf("Green2 off: %s\n", greenPort2);
 	writeLED("/value", greenPort2, "0");
-	printf("Yellow2 on: %s\n", yellowPort2);
 	writeLED("/value", yellowPort2, "1");
+    printf("Green2 off: %s\n", greenPort2);
+    printf("Yellow2 on: %s\n", yellowPort2);
 
 	sleep(5);
-	
-	printf("Yellow2 off: %s\n", yellowPort2);
+
 	writeLED("/value", yellowPort2, "0");
-	printf("Red1 off: %s\n", redPort1);
-	writeLED("/value", redPort1, "0");	
+	writeLED("/value", redPort1, "0");
+    printf("Yellow2 off: %s\n", yellowPort2);
+    printf("Red1 off: %s\n", redPort1);
 }
 
 void writeLED(char filename[], char port[], char value[]) {
