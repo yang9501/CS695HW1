@@ -18,12 +18,15 @@ void writeLED(char filename[], char port[], char value[]);
 void cycleLights(char greenPort1[], char yellowPort1[], char redPort1[], char greenPort2[], char yellowPort2[], char redPort2[]);
 
 int main() {
-	char trafficLight1Ports[3][5] = {GPIO_PATH_44, GPIO_PATH_68, GPIO_PATH_67};
-	char trafficLight2Ports[3][5] = {GPIO_PATH_26, GPIO_PATH_46, GPIO_PATH_65};
-	for(int i = 0; i < 3; i++) {
-		writeLED("/direction", trafficLight1Ports[i], "out");
-		writeLED("/direction", trafficLight2Ports[i], "out");
-	}
+	char trafficLight1Ports[3][25] = {GPIO_PATH_44, GPIO_PATH_68, GPIO_PATH_67};
+	char trafficLight2Ports[3][25] = {GPIO_PATH_26, GPIO_PATH_46, GPIO_PATH_65};
+
+    #ifdef DEBUG
+        for (int i = 0; i < 3; i++) {
+            writeLED("/direction", trafficLight1Ports[i], "out");
+            writeLED("/direction", trafficLight2Ports[i], "out");
+        }
+    #endif
 
 	while(1) {
 		cycleLights(trafficLight1Ports[0], trafficLight1Ports[1], trafficLight1Ports[2], trafficLight2Ports[0], trafficLight2Ports[1], trafficLight2Ports[2]);	
@@ -33,24 +36,30 @@ int main() {
 }
 
 void cycleLights(char greenPort1[], char yellowPort1[], char redPort1[], char greenPort2[], char yellowPort2[], char redPort2[]) {
-	writeLED("/value", greenPort1, "1");
+    #ifdef DEBUG
+    writeLED("/value", greenPort1, "1");
 	writeLED("/value", redPort2, "1");
+    #endif
     printf("Green1 on: %s\n", greenPort1);
     printf("Red2 on: %s\n", redPort2);
 	
 	sleep(10);
 
+    #ifdef DEBUG
 	writeLED("/value", greenPort1, "0");
     writeLED("/value", yellowPort1, "1");
+    #endif
     printf("Green1 off: %s\n", greenPort1);
     printf("Yellow1 on: %s\n", yellowPort1);
 	
 	sleep(5);
 
+    #ifdef DEBUG
 	writeLED("/value", yellowPort1, "0");
 	writeLED("/value", redPort1, "1");
 	writeLED("/value", greenPort2, "1");
 	writeLED("/value", redPort2, "0");
+    #endif
     printf("Yellow1 off: %s\n", yellowPort1);
     printf("Red1 on: %s\n", redPort1);
     printf("Green2 on: %s\n", greenPort2);
@@ -59,15 +68,19 @@ void cycleLights(char greenPort1[], char yellowPort1[], char redPort1[], char gr
 
 	sleep(10);
 
+    #ifdef DEBUG
 	writeLED("/value", greenPort2, "0");
 	writeLED("/value", yellowPort2, "1");
+    #endif
     printf("Green2 off: %s\n", greenPort2);
     printf("Yellow2 on: %s\n", yellowPort2);
 
 	sleep(5);
 
+    #ifdef DEBUG
 	writeLED("/value", yellowPort2, "0");
 	writeLED("/value", redPort1, "0");
+    #endif
     printf("Yellow2 off: %s\n", yellowPort2);
     printf("Red1 off: %s\n", redPort1);
 }
