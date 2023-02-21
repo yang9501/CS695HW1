@@ -38,27 +38,27 @@ int main() {
 void cycleLights(char greenPort1[], char yellowPort1[], char redPort1[], char greenPort2[], char yellowPort2[], char redPort2[]) {
     #ifdef DEBUG
     writeLED("/value", greenPort1, "1");
-	writeLED("/value", redPort2, "1");
+    writeLED("/value", redPort2, "1");
     #endif
     printf("Green1 on: %s\n", greenPort1);
     printf("Red2 on: %s\n", redPort2);
 	
-	sleep(10);
+    sleep(10);
 
     #ifdef DEBUG
-	writeLED("/value", greenPort1, "0");
+    writeLED("/value", greenPort1, "0");
     writeLED("/value", yellowPort1, "1");
     #endif
     printf("Green1 off: %s\n", greenPort1);
     printf("Yellow1 on: %s\n", yellowPort1);
 	
-	sleep(5);
+    sleep(5);
 
     #ifdef DEBUG
-	writeLED("/value", yellowPort1, "0");
-	writeLED("/value", redPort1, "1");
-	writeLED("/value", greenPort2, "1");
-	writeLED("/value", redPort2, "0");
+    writeLED("/value", yellowPort1, "0");
+    writeLED("/value", redPort1, "1");
+    writeLED("/value", greenPort2, "1");
+    writeLED("/value", redPort2, "0");
     #endif
     printf("Yellow1 off: %s\n", yellowPort1);
     printf("Red1 on: %s\n", redPort1);
@@ -66,20 +66,20 @@ void cycleLights(char greenPort1[], char yellowPort1[], char redPort1[], char gr
     printf("Red2 off: %s\n", redPort2);
 	
 
-	sleep(10);
+    sleep(10);
 
     #ifdef DEBUG
-	writeLED("/value", greenPort2, "0");
-	writeLED("/value", yellowPort2, "1");
+    writeLED("/value", greenPort2, "0");
+    writeLED("/value", yellowPort2, "1");
     #endif
     printf("Green2 off: %s\n", greenPort2);
     printf("Yellow2 on: %s\n", yellowPort2);
 
-	sleep(5);
+    sleep(5);
 
     #ifdef DEBUG
-	writeLED("/value", yellowPort2, "0");
-	writeLED("/value", redPort1, "0");
+    writeLED("/value", yellowPort2, "0");
+    writeLED("/value", redPort1, "0");
     #endif
     printf("Yellow2 off: %s\n", yellowPort2);
     printf("Red1 off: %s\n", redPort1);
