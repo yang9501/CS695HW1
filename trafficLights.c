@@ -5,6 +5,7 @@
 #include <string.h>
 #include <pthread.h>
 #include <sys/utsname.h>
+#include <stdint.h>
 
 #define DEBUG 1
 #define GPIO_PATH_44 "/sys/class/gpio/gpio44" //Green 1
