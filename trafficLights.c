@@ -27,9 +27,9 @@ int main(void) {
     (void) printf("DEBUG MODE\n");
     struct utsname sysInfo;
     (void) uname(&sysInfo);
-    (void) printf(“%s\n”, sysInfo.sysname);
-    (void) printf(“%s\n”, sysInfo.nodename);
-    (void) printf(“%s\n”, sysInfo.machine);
+    (void) printf("%s\n", sysInfo.sysname);
+    (void) printf("%s\n", sysInfo.nodename);
+    (void) printf("%s\n", sysInfo.machine);
     #else
     for (int i = 0; i < 3; i++) {
         (void) writeLED("/direction", trafficLight1Ports[i], "out");
